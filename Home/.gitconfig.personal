@@ -1,0 +1,11 @@
+[user]
+	name = snwzd
+	email = 145876397+snwzd@users.noreply.github.com
+	signingKey = E181F8264E28CE69 
+
+[commit]
+	gpgsign = true
+ 
+[core]
+	sshCommand = "ssh -i ~/.ssh/snwzd_github_sshkey"
+
