@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]; then
+    echo "Please run this as root."
+    exit 1
+fi
+
+set -euxo pipefail
+
+rpm --import https://packages.microsoft.com/keys/microsoft.asc
+echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" | tee /etc/yum.repos.d/vscode.repo > /dev/null
+
+sudo dnf upgrade -y
+
+sudo dnf install -y gnome-shell gdm nautilus adw-gtk3-theme cascadia-code-nf-fonts \
+    rsms-inter-vf-fonts btop flatpak
+
+sudo dnf install -y code kitty neovim stow @development-tools podman podman-compose \
+    systemd-container
+
+sudo systemctl enable gdm
+sudo systemctl set-default graphical.target
+
+dnf autoremove -y
