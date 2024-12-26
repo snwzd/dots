@@ -7,14 +7,15 @@ fi
 
 set -euxo pipefail
 
+# system
+rpm-ostree override remove firefox firefox-langpacks gnome-software gnome-software-rpm-ostree ptyxis
+rpm-ostree install rsms-inter-vf-fonts cascadia-code-nf-fonts adw-gtk3-theme kitty wl-clipboard stow distrobox podman-compose
+
+# home
 mkdir -p ~/.local/bin
 rm -rf ~/.mozilla
 
-rm ~/.bashrc ~/.bash_profile
-
 ln -s /usr/bin/kitty ~/.local/bin/gnome-terminal
-
-stow Home -t ~/
 
 flatpak remove --all -y
 
@@ -23,19 +24,18 @@ flatpak remote-modify flathub --enable
 
 flatpak install -y flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
 
-flatpak install -y flathub com.github.wwmm.easyeffects com.dec05eba.gpu_screen_recorder \
-    org.chromium.Chromium com.mattjakeman.ExtensionManager \
-    io.mpv.Mpv 
+flatpak install -y flathub com.dec05eba.gpu_screen_recorder org.chromium.Chromium \
+	com.mattjakeman.ExtensionManager io.mpv.Mpv io.bassi.Amberol org.gnome.clocks \
+	org.gnome.Calendar org.gnome.Papers org.gnome.World.Secrets org.gnome.Loupe \
+	com.github.tchx84.Flatseal de.haeckerfelix.Fragments 
 
 flatpak install -y flathub com.valvesoftware.Steam com.modrinth.ModrinthApp \
     com.usebottles.bottles
 
 # rustup
-
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 # asdf
-
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.1
 . "$HOME/.asdf/asdf.sh"
 
@@ -44,7 +44,6 @@ asdf install nodejs latest
 asdf global nodejs latest
 
 # gnome
-
 gsettings set org.gnome.shell.keybindings toggle-application-view []
 gsettings set org.gnome.shell.keybindings toggle-overview []
 gsettings set org.gnome.shell.keybindings toggle-quick-settings []
@@ -65,16 +64,5 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>x
 gsettings set org.gnome.desktop.session idle-delay "uint32 0"
 gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click true
 gsettings set org.gnome.desktop.interface clock-format '24h'
-
-gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
-gsettings set org.gnome.desktop.interface font-name 'Inter Variable 11'
-gsettings set org.gnome.desktop.interface document-font-name 'Inter Variable 11'
-gsettings set org.gnome.desktop.interface monospace-font-name 'Cascadia Code NF 12'
-
 gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'interactive'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Super>Return"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "kitty"
-gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "Terminal"
-

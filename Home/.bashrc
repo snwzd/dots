@@ -24,10 +24,6 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
-# asdf
-# . "$HOME/.asdf/asdf.sh"
-# . "$HOME/.asdf/completions/asdf.bash"
-
 # completions
 source /etc/profile.d/bash_completion.sh
 source /usr/share/git-core/contrib/completion/git-prompt.sh

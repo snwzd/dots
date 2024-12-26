@@ -7,15 +7,16 @@ fi
 
 set -euxo pipefail
 
-dnf install -y gnome-shell gdm nautilus adw-gtk3-theme rsms-inter-vf-fonts \
-  google-noto-fonts-all google-noto-color-emoji-fonts google-noto-emoji-fonts \
-  btop flatpak
+dnf upgrade -y
 
-dnf install -y kitty neovim stow podman podman-compose systemd-container
+dnf remove -y snapshot gnome-contacts gnome-weather gnome-maps mediawriter libreoffice* totem gnome-calculator simple-scan gnome-boxes baobab gnome-connections evince gnome-abrt gnome-font-viewer gnome-logs rhythmbox gnome-tour gnome-system-monitor firefox gnome-software gnome-text-editor PackageKit PackageKit-glib ptyxis
 
-dnf install -y npm golang @development-tools
+dnf install -y adw-gtk3-theme rsms-inter-vf-fonts cascadia-code-nf-fonts wl-clipboard podman-compose stow htop btop fzf kitty
 
-systemctl enable gdm
-systemctl set-default graphical.target
+dnf install -y @development-tools cmake ninja-build android-tools
+
+dnf install -y kubernetes-client helm opentofu
+
+dnf install -y papers secrets flatseal fragments
 
 dnf autoremove -y
